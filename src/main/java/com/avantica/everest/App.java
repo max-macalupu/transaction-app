@@ -1,13 +1,28 @@
 package com.avantica.everest;
 
+import java.util.stream.Stream;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+@SpringBootApplication
+public class App {
+  public static void main( String[] args ) {
+    SpringApplication.run(App.class, args);
+  }
+
+  @Bean
+  public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    return args -> {
+      System.out.println("Let's print all spring beans created");
+      String[] beans = ctx.getBeanDefinitionNames();
+      Stream.of(beans).forEach(System.out::println);
+    };
+  }
 }
