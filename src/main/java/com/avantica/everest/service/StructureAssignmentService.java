@@ -1,7 +1,7 @@
 package com.avantica.everest.service;
 
 import com.avantica.everest.dao.StructureAssignmentDao;
-import com.avantica.everest.exception.StructureAssignmentException;
+import com.avantica.everest.exception.ApiException;
 import com.avantica.everest.model.Transaction;
 import com.avantica.everest.model.type.DataStructureType;
 import com.avantica.everest.model.type.TransactionType;
@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StructureAssignmentService {
 
-  private static final Logger logger = LoggerFactory.getLogger(StructureAssignmentService.class);
+  private static final Logger logger =
+      LoggerFactory.getLogger(StructureAssignmentService.class);
 
   @Autowired
   private StructureAssignmentDao structureAssignmentDao;
@@ -50,14 +51,14 @@ public class StructureAssignmentService {
    * @param structureType
    */
   public void update(TransactionType transactionType, DataStructureType structureType) {
-    List<Transaction> transactionList = transactionService.findTransactionByType(transactionType);
+    List<Transaction> transactionList = transactionService.findByTransactionType(transactionType);
     if (transactionList.isEmpty()) {
       structureAssignmentDao.update(transactionType, structureType);
     }
 
     logger.error("Structure assignment can not be update due to pending transaction already exist. "
         + "TransactionType: {}, PendingTransactions: {}.", transactionType, transactionList.size());
-    throw new StructureAssignmentException("Structure assignment can not be update because "
+    throw new ApiException("Structure assignment can not be update because "
         + "there are pending transactions.");
   }
 

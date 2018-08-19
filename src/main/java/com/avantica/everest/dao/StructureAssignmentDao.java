@@ -2,7 +2,7 @@ package com.avantica.everest.dao;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
-import com.avantica.everest.exception.StructureAssignmentException;
+import com.avantica.everest.exception.ApiException;
 import com.avantica.everest.model.type.DataStructureType;
 import com.avantica.everest.model.type.TransactionType;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class StructureAssignmentDao {
     if (exists(txType)) {
       logger.error("Error creating new Structure assignment, TxType already exist: {}.",
           txType);
-      throw new StructureAssignmentException("You can not create Structure assignment "
+      throw new ApiException("You can not create Structure assignment "
           + "because they already exist.");
     }
 
@@ -62,14 +62,14 @@ public class StructureAssignmentDao {
     if (isEmpty(txType) || isEmpty(structureType)) {
       logger.error("Error updating Structure assignment, values should not be null. TxType: {}, "
           + "DataStructure: {}.", txType, structureType);
-      throw new StructureAssignmentException("Invalid parameters, TxType and DataStructureType "
+      throw new ApiException("Invalid parameters, TxType and DataStructureType "
           + "should not be null.");
     }
 
     if (!exists(txType)) {
       logger.error("Error updating Structure assignment, TxType does not exist in the store: {}."
           , txType);
-      throw new StructureAssignmentException("Invalid operation, transaction type can not be "
+      throw new ApiException("Invalid operation, transaction type can not be "
           + "updated because does not exist.");
     }
 
@@ -91,7 +91,7 @@ public class StructureAssignmentDao {
     if (!exists(transactionType)) {
       logger.error("Structure assignment can not be delete because it does not exist. TxType: {}."
           , transactionType);
-      throw new StructureAssignmentException("Structure assignment can not be delete due to "
+      throw new ApiException("Structure assignment can not be delete due to "
           + "it not exist in the store.");
     }
 
