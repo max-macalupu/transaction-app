@@ -1,5 +1,7 @@
 package com.avantica.everest.service;
 
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /***
@@ -7,7 +9,7 @@ import org.springframework.stereotype.Service;
  * store is made with Sql or mongodb.
  */
 @Service
-public class StoreConfigurationService {
+public class StorageConfigService {
 
   /**
    * This enum is used to storage
@@ -43,5 +45,14 @@ public class StoreConfigurationService {
    */
   public StorageType getCurrentStorage() {
     return this.storageType;
+  }
+
+  /***
+   * This method is used to return all
+   * storage list.
+   * @return
+   */
+  public List<StorageType> getStorageList() {
+    return Arrays.asList(StorageType.values());
   }
 }

@@ -70,8 +70,8 @@ public class StructureAssignmentDao {
     if (!exists(txType)) {
       logger.error("Error updating Structure assignment, TxType does not exist in the store: {}."
           , txType);
-      throw new ApiException("Invalid operation, transaction type can not be "
-          + "updated because does not exist.");
+      throw new ApiException("Transaction type can not be "
+          + "updated because does not exist in the store yet.");
     }
 
     structureAssignmentStore.put(txType, structureType);

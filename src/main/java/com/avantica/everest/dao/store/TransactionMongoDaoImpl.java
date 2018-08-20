@@ -1,5 +1,6 @@
-package com.avantica.everest.dao;
+package com.avantica.everest.dao.store;
 
+import com.avantica.everest.dao.TransactionDao;
 import com.avantica.everest.model.Transaction;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import com.avantica.everest.service.StoreConfigurationService.StorageType;
+import com.avantica.everest.service.StorageConfigService.StorageType;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class StoreConfigurationTest {
 
   @Autowired
-  private StoreConfigurationService storeConfigurationService;
+  private StorageConfigService storageConfigService;
 
   @Test
   public void testGetCurrentStoreAfterUpdateItShouldBeNotEmpty() {
     StorageType storeType = StorageType.SQL;
-    storeConfigurationService.update(storeType);
+    storageConfigService.update(storeType);
 
-    StorageType storageType = storeConfigurationService.getCurrentStorage();
+    StorageType storageType = storageConfigService.getCurrentStorage();
     assertNotNull(storageType);
     assertEquals(storageType, StorageType.SQL);
   }
@@ -32,11 +33,20 @@ public class StoreConfigurationTest {
   @Test
   public void testCleanStorageShouldReturnEmpty() {
     StorageType storeType = StorageType.MONGO;
-    storeConfigurationService.update(storeType);
+    storageConfigService.update(storeType);
 
-    storeConfigurationService.cleanStorage();
+    storageConfigService.cleanStorage();
 
-    StorageType storageType = storeConfigurationService.getCurrentStorage();
+    StorageType storageType = storageConfigService.getCurrentStorage();
     assertNull(storageType);
+  }
+
+  @Test
+  public void testGetAllStorageListShouldNotBeEmpty() {
+    List<StorageType> storageTypeList = storageConfigService.getStorageList();
+
+    assertNotNull(storageTypeList);
+    assertEquals(storageTypeList.get(0), StorageType.SQL);
+    assertEquals(storageTypeList.get(1), StorageType.MONGO);
   }
 }

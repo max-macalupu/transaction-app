@@ -1,5 +1,7 @@
-package com.avantica.everest.dao;
+package com.avantica.everest.dao.store;
 
+import com.avantica.everest.dao.TransactionDao;
+import com.avantica.everest.dao.store.AbstractTransactionStore;
 import com.avantica.everest.model.Transaction;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,11 +13,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Qualifier("transactionSql")
-public class TransactionSqlDaoImpl implements TransactionDao {
+public class TransactionSqlDaoImpl extends AbstractTransactionStore implements TransactionDao {
 
   @Override
   public Transaction create(Transaction transaction) {
-    return null;
+    save(transaction);
+    //here we should persist in database
+    return transaction;
   }
 
   @Override

@@ -67,4 +67,46 @@ public class Transaction implements Serializable {
         ", transactionType=" + transactionType +
         '}';
   }
+
+  /***
+   * this class is used to use the builder pattern.
+   */
+  public static class Builder {
+    private Long id;
+    private String name;
+    private Integer weight;
+    private Date inputDate;
+    private TransactionType transactionType;
+
+    public Builder id(Long id) {
+      this.id = id;
+      return this;
+    }
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+    public Builder weight(Integer weight) {
+      this.weight = weight;
+      return this;
+    }
+    public Builder inputDate(Date inputDate) {
+      this.inputDate = inputDate;
+      return this;
+    }
+    public Builder transactionType(TransactionType transactionType) {
+      this.transactionType = transactionType;
+      return this;
+    }
+
+    public Transaction build() {
+      Transaction transaction = new Transaction();
+      transaction.setId(this.id);
+      transaction.setTransactionType(this.transactionType);
+      transaction.setWeight(this.weight);
+      transaction.setName(this.name);
+      transaction.setInputDate(this.inputDate);
+      return transaction;
+    }
+  }
 }

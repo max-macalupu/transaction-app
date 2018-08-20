@@ -1,10 +1,12 @@
 package com.avantica.everest.service;
 
 import com.avantica.everest.dao.StructureAssignmentDao;
+import com.avantica.everest.domain.StructureAssignmentResponse;
 import com.avantica.everest.exception.ApiException;
 import com.avantica.everest.model.Transaction;
 import com.avantica.everest.model.type.DataStructureType;
 import com.avantica.everest.model.type.TransactionType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -38,14 +40,6 @@ public class StructureAssignmentService {
   }
 
   /***
-   * This method is used to delete the transaction type.
-   * @param transactionType
-   */
-  public TransactionType delete(TransactionType transactionType) {
-    return structureAssignmentDao.delete(transactionType);
-  }
-
-  /***
    * This method is used to update the transaction type.
    * @param transactionType
    * @param structureType
@@ -64,19 +58,36 @@ public class StructureAssignmentService {
   }
 
   /***
-   * This method is used to list all structure assignments.
-   * @return
+   * This method is used to delete the transaction type.
+   * @param transactionType
    */
-  public Map list() {
-    return structureAssignmentDao.list();
+  public TransactionType delete(TransactionType transactionType) {
+    return structureAssignmentDao.delete(transactionType);
   }
 
   /***
-   * This method is used to return DataStructureType from transactionType.
+   * This method is used to list all structure assignments.
+   * @return
+   */
+  public List<StructureAssignmentResponse> list() {
+    Map<TransactionType,DataStructureType> map = structureAssignmentDao.list();
+
+    List<StructureAssignmentResponse> responses = new ArrayList<>();
+    map.forEach((x, y) -> {
+      StructureAssignmentResponse response = new StructureAssignmentResponse();
+      response.setTransactionType(x);
+      response.setStructureType(y);
+      responses.add(response);
+    });
+    return responses;
+  }
+
+  /**
+   *
    * @param transactionType
    * @return
    */
-  public DataStructureType findBy(TransactionType transactionType) {
-    return (DataStructureType) list().get(transactionType);
+  public DataStructureType findByType(TransactionType transactionType) {
+    return (DataStructureType) structureAssignmentDao.list().get(transactionType);
   }
 }

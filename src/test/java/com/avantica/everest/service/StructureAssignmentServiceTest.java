@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.avantica.everest.dao.StructureAssignmentDao;
+import com.avantica.everest.domain.StructureAssignmentResponse;
 import com.avantica.everest.exception.ApiException;
 import com.avantica.everest.model.Transaction;
 import com.avantica.everest.model.type.DataStructureType;
@@ -93,14 +94,14 @@ public class StructureAssignmentServiceTest {
   }
 
   @Test
-  public void testListStructureAssignmentShouldReturnData() {
+  public void testListStructureAssignmentShouldReturnNotEmpty() {
     Map emptyMap = new HashMap();
     when(structureAssignmentDao.list()).thenReturn(emptyMap);
 
-    Map map = structureAssignmentService.list();
+    List<StructureAssignmentResponse> emptyList = structureAssignmentService.list();
 
     verify(structureAssignmentDao, times(1)).list();
-    assertNotNull(map);
+    assertNotNull(emptyList);
   }
 
   private List<Transaction> mockTransactionList() {
