@@ -10,6 +10,8 @@ import com.avantica.everest.model.Transaction;
 import com.avantica.everest.model.type.DataStructureType;
 import com.avantica.everest.model.type.TransactionType;
 import com.avantica.everest.service.StructureAssignmentService;
+import java.util.Arrays;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,6 +39,10 @@ public abstract class AbstractTransactionStore {
     } else if (QUEUE.equals(structureType)) {
       queue.enqueue(transaction);
     }
+  }
+
+  protected List<Transaction> getAll() {
+    return Arrays.asList(queue.list());
   }
 
   /****

@@ -34,7 +34,10 @@ public class TransactionSqlDaoImpl extends AbstractTransactionStore implements T
 
   @Override
   public List<Transaction> getAllTransactions() {
-    return null;
+    //TODO go to the database
+
+    //Get data from data structure
+    return getAll();
   }
 
   @Override

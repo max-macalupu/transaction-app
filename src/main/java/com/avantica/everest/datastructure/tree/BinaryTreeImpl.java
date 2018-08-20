@@ -1,5 +1,6 @@
 package com.avantica.everest.datastructure.tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -8,10 +9,13 @@ import java.util.List;
  */
 public class BinaryTreeImpl<T> implements BinaryTree<T> {
 
+  private List<T> t = new ArrayList<>();
+
   //TODO
   @Override
   public T insert(T transaction) {
-    return null;
+    t.add(transaction);
+    return transaction;
   }
 
   //TODO
@@ -29,6 +33,6 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
   //TODO
   @Override
   public List<T> findAll() {
-    return null;
+    return t;
   }
 }
