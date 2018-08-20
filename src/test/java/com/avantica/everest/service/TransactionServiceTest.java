@@ -13,6 +13,7 @@ import com.avantica.everest.dao.TransactionDao;
 import com.avantica.everest.exception.ApiException;
 import com.avantica.everest.model.Transaction;
 import com.avantica.everest.model.type.TransactionType;
+import com.avantica.everest.service.StorageConfigService.StorageType;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;
@@ -34,6 +35,8 @@ public class TransactionServiceTest {
   private TransactionService transactionService;
   @Mock
   private TransactionDao transactionDao;
+  @Mock
+  private StorageConfigService storageConfigService;
   @Rule
   public ExpectedException expectedException = ExpectedException.none();
 
@@ -54,6 +57,7 @@ public class TransactionServiceTest {
 
   @Test
   public void testCreateTransactionShouldCallCreateDao() {
+    when(storageConfigService.getCurrentStorage()).thenReturn(StorageType.SQL);
     Transaction transaction = new Transaction();
     transaction = transactionService.create(transaction);
 
