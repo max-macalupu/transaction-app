@@ -33,16 +33,16 @@ public class StructureAssignmentService {
    * @param transactionType
    * @param structureType
    */
-  public void create(TransactionType transactionType, DataStructureType structureType) {
-    structureAssignmentDao.create(transactionType, structureType);
+  public TransactionType create(TransactionType transactionType, DataStructureType structureType) {
+    return structureAssignmentDao.create(transactionType, structureType);
   }
 
   /***
    * This method is used to delete the transaction type.
    * @param transactionType
    */
-  public void delete(TransactionType transactionType) {
-    structureAssignmentDao.delete(transactionType);
+  public TransactionType delete(TransactionType transactionType) {
+    return structureAssignmentDao.delete(transactionType);
   }
 
   /***
@@ -50,10 +50,11 @@ public class StructureAssignmentService {
    * @param transactionType
    * @param structureType
    */
-  public void update(TransactionType transactionType, DataStructureType structureType) {
+  public TransactionType update(TransactionType transactionType, DataStructureType structureType) {
     List<Transaction> transactionList = transactionService.findByTransactionType(transactionType);
     if (transactionList.isEmpty()) {
       structureAssignmentDao.update(transactionType, structureType);
+      return transactionType;
     }
 
     logger.error("Structure assignment can not be update due to pending transaction already exist. "

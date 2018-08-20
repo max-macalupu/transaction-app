@@ -3,6 +3,7 @@ package com.avantica.everest.model;
 import com.avantica.everest.model.type.TransactionType;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /***
  * This class is used to mapping the
@@ -17,6 +18,10 @@ public class Transaction implements Serializable {
   private TransactionType transactionType;
 
   public Transaction() {
+  }
+
+  public Transaction(Long id) {
+    this.id = id;
   }
 
   public Long getId() { return id;  }
@@ -39,6 +44,18 @@ public class Transaction implements Serializable {
 
   public void setTransactionType(TransactionType transactionType) {
     this.transactionType = transactionType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Transaction that = (Transaction) o;
+    return Objects.equals(id, that.id);
   }
 
   @Override

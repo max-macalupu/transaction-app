@@ -2,6 +2,7 @@ package com.avantica.everest.dao;
 
 import com.avantica.everest.model.Transaction;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 /***
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
  * in the dao layer.
  */
 @Repository
+@Qualifier("transactionMongo")
 public class TransactionMongoDaoImpl implements TransactionDao {
 
   @Override

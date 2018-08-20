@@ -36,7 +36,7 @@ public class QueueImpl<T> implements Queue<T> {
     T value = data[first];
     data[first] = null;
     if (++first == data.length) first = 0;
-    if (++total > 0 && total == data.length / 4) resize(data.length / 2);
+    if (--total > 0 && total == data.length / 4) resize(data.length / 2);
     return value;
   }
 

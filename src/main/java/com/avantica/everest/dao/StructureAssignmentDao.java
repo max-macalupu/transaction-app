@@ -36,7 +36,7 @@ public class StructureAssignmentDao {
    * @param txType
    * @param structureType
    */
-  public void create(TransactionType txType, DataStructureType structureType) {
+  public TransactionType create(TransactionType txType, DataStructureType structureType) {
     logger.debug("Creating new StructureAssignment, TxType: {}, StructureType: {}",
         txType, structureType);
 
@@ -48,6 +48,7 @@ public class StructureAssignmentDao {
     }
 
     structureAssignmentStore.put(txType, structureType);
+    return txType;
   }
 
   /***
@@ -55,7 +56,7 @@ public class StructureAssignmentDao {
    * @param txType
    * @param structureType
    */
-  public void update(TransactionType txType, DataStructureType structureType) {
+  public TransactionType update(TransactionType txType, DataStructureType structureType) {
     logger.info("Structure assignment is updated, txType: {}, structureType: {}.",
         txType, structureType);
 
@@ -74,18 +75,18 @@ public class StructureAssignmentDao {
     }
 
     structureAssignmentStore.put(txType, structureType);
-
+    return txType;
   }
 
   /***
    * This method is used to delete Structure assignment.
    * @param transactionType
    */
-  public void delete(TransactionType transactionType) {
+  public TransactionType delete(TransactionType transactionType) {
     logger.info("Structure assignment gonna be deleted, TxType: {}.", transactionType);
     if (transactionType == null) {
       structureAssignmentStore.clear();
-      return;
+      return transactionType;
     }
 
     if (!exists(transactionType)) {
@@ -96,6 +97,7 @@ public class StructureAssignmentDao {
     }
 
     structureAssignmentStore.remove(transactionType);
+    return transactionType;
   }
 
   /***
