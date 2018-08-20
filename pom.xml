@@ -91,7 +91,7 @@
               <goal>verify</goal>
             </goals>
             <configuration>
-              <skipTests>false</skipTests>
+              <skipTests>true</skipTests>
               <includes>
                 <include>**/IT*.java</include>
               </includes>
