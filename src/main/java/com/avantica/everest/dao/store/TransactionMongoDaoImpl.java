@@ -2,6 +2,7 @@ package com.avantica.everest.dao.store;
 
 import com.avantica.everest.dao.TransactionDao;
 import com.avantica.everest.model.Transaction;
+import com.avantica.everest.model.type.DataStructureType;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,8 @@ public class TransactionMongoDaoImpl implements TransactionDao {
   }
 
   @Override
-  public Transaction findById(Long id) {
+  public Transaction findById(Long id,
+      DataStructureType structureType) {
     return null;
   }
 }

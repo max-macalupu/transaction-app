@@ -1,6 +1,7 @@
 package com.avantica.everest.dao;
 
 import com.avantica.everest.model.Transaction;
+import com.avantica.everest.model.type.DataStructureType;
 import java.util.List;
 
 public interface TransactionDao {
@@ -13,5 +14,6 @@ public interface TransactionDao {
 
   public List<Transaction> getAllTransactions() ;
 
-  public Transaction findById(Long id);
+  public Transaction findById(Long id,
+      DataStructureType structureType);
 }

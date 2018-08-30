@@ -2,6 +2,7 @@ package com.avantica.everest.model;
 
 import com.avantica.everest.model.type.TransactionType;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  * This class is used to mapping the
  * transaction into java class.
  */
-public class Transaction implements Serializable {
+public class Transaction implements Serializable, Comparable<Transaction> {
 
   private Long id;
   private String name;
@@ -46,6 +47,11 @@ public class Transaction implements Serializable {
     this.transactionType = transactionType;
   }
 
+//  @Override
+  public int compare(Object o1, Object o2) {
+    return ((Transaction) o1).getId() > ((Transaction) o2).getId() ? 1 : 0;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -55,7 +61,7 @@ public class Transaction implements Serializable {
       return false;
     }
     Transaction that = (Transaction) o;
-    return Objects.equals(id, that.id);
+    return Objects.equals(weight, that.weight);
   }
 
   @Override
@@ -66,6 +72,12 @@ public class Transaction implements Serializable {
         ", inputDate=" + inputDate +
         ", transactionType=" + transactionType +
         '}';
+  }
+
+  @Override
+  public int compareTo(Transaction o) {
+    return this.getWeight() == o.getWeight() ? 0 :
+        this.getWeight() > o.getWeight() ? 1 : -1;
   }
 
   /***

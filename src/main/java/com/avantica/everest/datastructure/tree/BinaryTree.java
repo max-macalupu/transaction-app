@@ -10,9 +10,9 @@ public interface BinaryTree<T> {
 
   public T insert(T transaction);
 
-  public T delete(T transaction);
+  public void delete(T transaction);
 
-  public T find(Integer weight);
+  public T find(T transaction);
 
   public List<T> findAll();
 }
