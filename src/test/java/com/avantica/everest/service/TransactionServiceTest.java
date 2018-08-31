@@ -28,7 +28,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class TransactionServiceTest {
 
   @InjectMocks
@@ -71,16 +71,16 @@ public class TransactionServiceTest {
 
   @Test(expected = ApiException.class)
   public void testDeleteTransactionNotExistShouldThrowException() {
-    when(transactionDao.findById(any())).thenReturn(null);
-    transactionService.delete(100L);
+    when(transactionDao.findById(any(), any())).thenReturn(null);
+    transactionService.delete(100L, TransactionType.SWAP_CHECKS);
   }
 
   @Test
   public void testDeleteTransactionShouldCallDeleteDaoMethod() {
     Transaction transactionMock = new Transaction();
-    when(transactionDao.findById(any())).thenReturn(transactionMock);
+    when(transactionDao.findById(any(), any())).thenReturn(transactionMock);
 
-    transactionService.delete(100L);
+    transactionService.delete(100L, TransactionType.SWAP_CHECKS);
 
     verify(transactionDao, times(1)).delete(any());
   }

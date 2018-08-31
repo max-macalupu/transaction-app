@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,6 +41,7 @@ public class TransactionController {
   @PostMapping
   public @ResponseBody OkResponse createTransaction(@RequestBody TransactionRequest request) {
     Transaction transaction = new Transaction.Builder()
+        .id(Long.valueOf(request.getWeight()))
         .name(request.getName())
         .weight(request.getWeight())
         .inputDate(request.getInputDate())
@@ -55,10 +57,10 @@ public class TransactionController {
    * @param request
    * @return
    */
-  @PutMapping
+  @DeleteMapping
   public @ResponseBody OkResponse deleteTransaction(@RequestBody TransactionRequest request) {
 
-    transactionService.delete(request.getId());
+    transactionService.delete(request.getId(), request.getTransactionType());
 
     return new OkResponse("Transaction was deleted successfully.");
   }

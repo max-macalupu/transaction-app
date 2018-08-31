@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 import com.avantica.everest.dao.TransactionDao;
 import com.avantica.everest.exception.ApiException;
 import com.avantica.everest.model.Transaction;
+import com.avantica.everest.model.type.DataStructureType;
 import com.avantica.everest.model.type.TransactionType;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,15 @@ public class TransactionService {
   }
 
   /***
+   * This method is used to return all transaction from
+   * dao layer.
+   * @return
+   */
+  public List<Transaction> getPendingTransaction() {
+    return transactionDao.getAllTransactions();
+  }
+
+  /***
    * This method is used to find transaction by
    * filters.
    * @param predicateList
@@ -96,11 +106,13 @@ public class TransactionService {
    * This method is used to delete a transaction
    * using the id.
    * @param id
+   * @param transactionType
    */
-  public void delete(Long id) {
+  public void delete(Long id, TransactionType transactionType) {
     logger.info("Deleting transaction with id: {}.", id);
 
-    Transaction transaction = transactionDao.findById(id);
+    DataStructureType structureType = structureAssignmentService.findByType(transactionType);
+    Transaction transaction = transactionDao.findById(id, structureType);
 
     if (transaction == null) {
       logger.error("Transaction with id: {} does not exist.", id);

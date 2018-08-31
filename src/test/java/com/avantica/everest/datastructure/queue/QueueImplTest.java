@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class QueueImplTest {
 
   private Queue<Transaction> queue;
@@ -73,7 +73,7 @@ public class QueueImplTest {
   public void testFindTransactionAfterBeEnqueueShouldBeFound() {
     queue.enqueue(getMockTransaction());
 
-    Transaction transaction = new Transaction(100L);
+    Transaction transaction = new Transaction.Builder().weight(10).build();
     Transaction foundTransaction = queue.find(transaction);
 
     assertNotNull(foundTransaction);

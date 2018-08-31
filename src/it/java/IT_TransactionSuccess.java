@@ -17,7 +17,7 @@ public class IT_TransactionSuccess extends BaseClass {
   public void test01_CreateNewTransaction() {
     Map<String, Object> request = new HashMap<>();
     request.put("name", "ewqeqw");
-    request.put("weight", 10);
+    request.put("weight", 100);
     request.put("inputDate", "2019-09-09");
     request.put("transactionType", "SWAP_CHECKS");
 
