@@ -7,6 +7,7 @@ import com.avantica.everest.model.type.DataStructureType;
 import com.avantica.everest.model.type.TransactionType;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,11 @@ public class StructureAssignmentDao {
   /**
    * This Map store all the transactionType with his own DataStructure.
    */
-  private Map<TransactionType, DataStructureType> structureAssignmentStore;
+  private ConcurrentHashMap<TransactionType, DataStructureType> structureAssignmentStore;
 
   @PostConstruct
   public void init() {
-    structureAssignmentStore = new HashMap<>();
+    structureAssignmentStore = new ConcurrentHashMap<>();
   }
 
   /***
